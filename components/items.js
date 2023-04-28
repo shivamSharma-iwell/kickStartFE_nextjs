@@ -16,6 +16,7 @@ const Items = (props) => {
                         name="currencyName"
                         value={props.price.unitPriceName}
                         onChange={(event) => {props.handlePriceChange(event)}}
+                        maxLength="25"
                     /> 
                 </th>
                 <th className={styles.alignRight}>Line Total</th>
@@ -24,7 +25,7 @@ const Items = (props) => {
         </thead>
         <tbody>
             {props.items && props.items.map((item, index) => (
-                <tr key={item.taxID}>
+                <tr key={item.itemID}>
                     <td className={styles.alignLeft}>{index + 1}</td>
                     <td>
                         <input
@@ -33,6 +34,7 @@ const Items = (props) => {
                             name="description"
                             value={item.description}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
+                            maxLength="25"
                         />
                     </td>
                     <td>
@@ -42,6 +44,7 @@ const Items = (props) => {
                             name="quantity"
                             value={item.quantity}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
+                            maxLength="10"
                         />
                     </td>
                     <td>
@@ -51,6 +54,7 @@ const Items = (props) => {
                             name="unitPrice"
                             value={item.unitPrice}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
+                            maxLength="10"
                         />
                     </td>
                     <td className={`${styles.alignRight} ${styles.lineTotal}`} type="number" name="lineTotal">
@@ -68,7 +72,10 @@ const Items = (props) => {
                 </td>
             </tr>
         <tr>
-            <td suppressContentEditableWarning={true} contentEditable="true" colSpan="4" ref={(text) => props.contentEditableRef.current.push(text)}><b>Sub Total</b></td>
+            <td colSpan="4"><b>
+                <input className={styles.inputBox} name="subTotalName" 
+                value={props.data.subTotalName} onChange={(event)=>props.handleChange(event)} maxLength="25"/>
+                </b></td>
             <td className={styles.alignRight} colSpan="2"><b>{props.price.currencySymbol} {props.subTotal}</b></td>
         </tr>
         </tfoot>

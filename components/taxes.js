@@ -7,9 +7,11 @@ const Taxes = (props) => {
         <tbody className={styles.highlight}>
             {props.taxes && props.taxes.map((tax) => (
                 <tr key={tax.taxID}>
-                    <td><input className={`${styles.inputBox} ${styles.highlight}`} contentEditable="true" name="taxName" onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxName}/></td>
+                    <td><input className={`${styles.inputBox} ${styles.highlight}`} name="taxName" 
+                    onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxName} maxLength="25"/></td>
                     <td className={styles.alignCenter}>
-                        <input className={`${styles.inputBox} ${styles.highlight} ${styles.taxPercentage}`} contentEditable="true" name="taxPercentage" onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxPercentage}/>
+                        <input className={`${styles.inputBox} ${styles.highlight} ${styles.taxPercentage}`} name="taxPercentage" 
+                        onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxPercentage} maxLength="10"/>
                         <span>%</span>
                     </td>
                     <td className={`${styles.highlight} ${styles.alignRight}`} name="taxAmount">{
@@ -26,7 +28,7 @@ const Taxes = (props) => {
                 </td>   
              </tr>
             <tr>
-                <td className={styles.alignLeft} colSpan="2" suppressContentEditableWarning={true} contentEditable="true" ref={(text) => props.contentEditableRef.current.push(text)}><b>Total</b></td>
+                <td className={styles.alignLeft} colSpan="2"><b><input className={styles.inputBox} name="totalWithTaxName" value={props.data.totalWithTaxName} onChange={(event)=>props.handleChange(event)}/></b></td>
                 <td className={styles.alignRight}><b>{props.price.currencySymbol} {props.totalWithTax}</b></td>
             </tr>
         </tfoot>

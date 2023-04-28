@@ -5,8 +5,9 @@ import styles from '../styles/styles.module.css'
 import Items from '../components/items'
 import Taxes from '../components/taxes'
 
+
 export default function Index() {
-  const contentEditableRef = useRef([]);
+  const userMessageRef = useRef(null);
   const date = new Date();
 
   const day = date.getDate();
@@ -35,6 +36,12 @@ export default function Index() {
   const [price, setPrice] = useState({
       unitPriceName: 'Unit price (₹)',
       currencySymbol: '₹'
+  })
+
+  const [address, setAddress] = useState({
+    addressLine1: '123 your street',
+    addressLine2: 'Your Town',
+    addressLine3: 'Address Line 3'
   })
 
   useEffect(() => {
@@ -141,31 +148,78 @@ export default function Index() {
       })
   }
 
+
+  const [data, setData] = useState({
+    advisoryCompanyName: 'Company Name',
+    contactNo: '123456789',
+    email: 'test@gmail.com',
+    invoiceHeading: 'Invoice',
+    date: currentDate,
+    invoiceID: 'Invoice #234556',
+    poNumber: 'PO 123445',
+    clientName: 'Mr. Jane Doe',
+    clientCompanyName: 'Client Company Name',
+    userMessage: 'Dear Ms. Jane Doe\n\nPlease find below a cost-breakdown for the recent work completed. Please make payment at your earliest convenience, and do not hesitate to contact me with any questions\n\nMany thanks,\nYour Name\n',
+    subTotalName: 'Sub Total',
+    totalWithTaxName: 'Total',
+    conclusionMessage: 'Many thanks! I look forward to doing business with you again in due course.\n\nPayment terms: to be received within 60 days.\n'
+  })
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setData(prevVal=>{
+        return {
+            ...prevVal,
+            [name]: value
+        }
+    })
+  }
+
+  const handleChangeAddress = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setAddress((prevValue)=>{
+        return {
+            ...prevValue,
+            [name]: value
+        }
+    })
+  }
+
+  const evalAddress = () => {
+    let currAddress = '';
+    if(address.addressLine1.length!=0){
+        currAddress = address.addressLine1 + '\n';
+    }
+    if(address.addressLine2.length!=0){
+        currAddress += address.addressLine2 + '\n';
+    }
+    if(address.addressLine3.length!=0){
+        currAddress += address.addressLine3 + '\n';
+    }
+    return currAddress;
+  }
+
+  const handleBlurUserMessage = () => {
+    console.log( userMessageRef.current.value)
+   
+  }
+
   const downloadPdf = () => {
-      const data = {
-          "advisoryCompanyName": contentEditableRef.current[0].innerText,
-          "address": contentEditableRef.current[1].innerText,
-          "contactNo": contentEditableRef.current[2].innerText,
-          "email": contentEditableRef.current[3].innerText,
-          "invoiceHeading": contentEditableRef.current[4].innerText,
-          "date": contentEditableRef.current[5].innerText,
-          "invoiceID": contentEditableRef.current[6].innerText,
-          "poNumber": contentEditableRef.current[7].innerText,
-          "clientName": contentEditableRef.current[8].innerText,
-          "clientCompanyName": contentEditableRef.current[9].innerText,
-          "userMessage": contentEditableRef.current[10].innerText,
-          "items": items,
-          "taxes": taxes,
-          "unitPriceName": price.unitPriceName,
-          "currencySymbol": price.currencySymbol,
-          "subTotal": subTotal,
-          "totalWithTax": totalWithTax,
-          "subTotalName": contentEditableRef.current[11].innerText,
-          "totalWithTaxName": contentEditableRef.current[12].innerText,
-          "conclusionMessage": contentEditableRef.current[13].innerText,
+
+      const totalData = {
+        ...data,
+        items: items,
+        taxes: taxes,
+        unitPriceName: price.unitPriceName,
+        currencySymbol: price.currencySymbol,
+        subTotal: subTotal,
+        totalWithTax: totalWithTax,
+        address: evalAddress()
       }
 
-      let dataString = (JSON.stringify(data)).replaceAll("#", "hashSymbol")
+      let dataString = (JSON.stringify(totalData)).replaceAll("#", "hashSymbol")
       dataString = dataString.replaceAll("&", "ampersandSymbol")
       dataString = dataString.replaceAll("%", "percentageSymbol")
       dataString = dataString.replaceAll("+", "plusSymbol")
@@ -187,39 +241,42 @@ export default function Index() {
               <div className={styles.leftMainBox}>
                   <div className={styles.headerInfo}>
                       <div className={styles.leftContainer}>
-                          <div className={styles.heading} suppressContentEditableWarning={true} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>Company Name</div>
-                          <div ref={(text) => contentEditableRef.current.push(text)}>
-                              <div suppressContentEditableWarning={true} contentEditable="true">123 your street</div>
-                              <div suppressContentEditableWarning={true} contentEditable="true">Your town</div>
-                              <div suppressContentEditableWarning={true} contentEditable="true">Address Line 3</div>
+                          <input className={`${styles.heading} ${styles.inputBox}`} name="advisoryCompanyName" 
+                          value={data.advisoryCompanyName} onChange={(event)=>handleChange(event)} maxLength="25"/>
+                          <div>
+                              <input className={styles.inputBox} name="addressLine1" 
+                              onChange={(event)=>handleChangeAddress(event)} value={address.addressLine1} maxLength="25"/>
+                             <input className={styles.inputBox} name="addressLine2" 
+                              onChange={(event)=>handleChangeAddress(event)} value={address.addressLine2} maxLength="25"/>
+                             <input className={styles.inputBox} name="addressLine3" 
+                              onChange={(event)=>handleChangeAddress(event)} value={address.addressLine3} maxLength="25"/>  
                           </div>
-                          <div suppressContentEditableWarning={true} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>(123) 456 789</div>
-                          <div suppressContentEditableWarning={true} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>email@yourcompany.com</div>
+                          <input className={styles.inputBox} name="contactNo" value={data.contactNo} 
+                          onChange={(event)=>handleChange(event)} maxLength="25"/>
+                          <input className={styles.inputBox} name="email" value={data.email} 
+                          onChange={(event)=>handleChange(event)} maxLength="25"/>
                       </div>
                       <div className={`${styles.rightContainer} ${styles.alignRight}`}>
-                          <div className={styles.heading} suppressContentEditableWarning={true} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>Invoice</div>
-                          <div suppressContentEditableWarning={true} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>{currentDate}</div>
-                          <div suppressContentEditableWarning={true} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>Invoice #2334889</div>
-                          <div suppressContentEditableWarning={true} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>PO 456001200</div>
-                          <div suppressContentEditableWarning={true} className={styles.highlight} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>Att: Ms. Jane Doe</div>
-                          <div suppressContentEditableWarning={true} className={styles.highlight} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>Client Company Name</div>
+                          <input className={`${styles.heading} ${styles.alignRight} ${styles.inputBox}`} 
+                          name="invoiceHeading" value={data.invoiceHeading} onChange={(event)=>handleChange(event)} maxLength="25"/>
+                          <input className={`${styles.inputBox} ${styles.alignRight}`} 
+                          name="date" value={data.date} onChange={(event)=>handleChange(event)} maxLength="25"/>
+                          <input className={`${styles.inputBox} ${styles.alignRight}`} 
+                          name="invoiceID" value={data.invoiceID} onChange={(event)=>handleChange(event)} maxLength="25"/>
+                          <input className={`${styles.inputBox} ${styles.alignRight}`} 
+                          name="poNumber" value={data.poNumber} onChange={(event)=>handleChange(event)} maxLength="25"/>
+                          <input className={`${styles.inputBox} ${styles.alignRight}`} 
+                          name="clientName" value={data.clientName} onChange={(event)=>handleChange(event)} maxLength="25"/>
+                          <input className={`${styles.inputBox} ${styles.alignRight}`} 
+                          name="clientCompanyName" value={data.clientCompanyName} onChange={(event)=>handleChange(event)} maxLength="25"/>
                       </div>
                   </div>
                   <hr/>
-                  <div className={styles.userMessage} suppressContentEditableWarning={true} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>
-                      <span>Dear Ms. Jane Doe</span>
-                      <br />
-                      <br />
-                      <span>Please find below a cost-breakdown for the recent work completed. Please make payment at your
-                          earliest convenience, and do not hesitate to contact me with any questions.
-                      </span>
-                      <br />
-                      <br />
-                      <span>Many Thanks</span>
-                      <br />
-                      <span>Your Name</span>
-                  </div>
-
+                  <textarea ref={userMessageRef} className={`${styles.userMessage} ${styles.userMessageBox} ${styles.textAreaBox}`} 
+                  name="userMessage" value={data.userMessage} onChange={(event)=>handleChange(event)} maxLength="350"
+                  onBlur={()=>handleBlurUserMessage()}
+                  />
+                  
                   <Items 
                       items={items}
                       taxes={taxes}
@@ -229,7 +286,8 @@ export default function Index() {
                       totalWithTax={totalWithTax}
                       price={price}
                       handlePriceChange={handlePriceChange}
-                      contentEditableRef={contentEditableRef}
+                      data={data}
+                      handleChange={handleChange}
                   />
                   <Taxes
                       items={items}
@@ -240,14 +298,11 @@ export default function Index() {
                       totalWithTax={totalWithTax}
                       price={price}
                       handlePriceChange={handlePriceChange}
-                      contentEditableRef={contentEditableRef}
+                      data={data}
+                      handleChange={handleChange}
                   />
-                  <div className={styles.conclusionMessage} suppressContentEditableWarning={true} contentEditable="true" ref={(text) => contentEditableRef.current.push(text)}>
-                      <span>Many thanks! I look forward to doing business with you again in due course. </span>
-                      <br />
-                      <br />
-                      <span> Payment terms: to be received within 60 days.</span>
-                  </div>
+                  <textarea className={`${styles.conclusionMessage} ${styles.conclusionMessageBox} ${styles.textAreaBox}`} 
+                  name="conclusionMessage" value={data.conclusionMessage} onChange={(event)=>handleChange(event)} maxLength="200"/>
               </div>     
               <div className={styles.rightMainBox}>
                   <button className={styles.rightBoxDownloadBtn} onClick={() => downloadPdf()}>Download this invoice</button>
@@ -256,4 +311,4 @@ export default function Index() {
       </div>
     </>
   )
-}
+}   
