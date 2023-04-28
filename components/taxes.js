@@ -10,7 +10,7 @@ const Taxes = (props) => {
                     <td><input className={`${styles.inputBox} ${styles.highlight}`} name="taxName" 
                     onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxName} maxLength="25"/></td>
                     <td className={styles.alignCenter}>
-                        <input className={`${styles.inputBox} ${styles.highlight} ${styles.taxPercentage}`} name="taxPercentage" 
+                        <input className={`${styles.highlight} ${styles.taxPercentage}`} name="taxPercentage" 
                         onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxPercentage} maxLength="10"/>
                         <span>%</span>
                     </td>

@@ -7,7 +7,7 @@ import Taxes from '../components/taxes'
 
 
 export default function Index() {
-  const userMessageRef = useRef(null);
+
   const date = new Date();
 
   const day = date.getDate();
@@ -201,10 +201,6 @@ export default function Index() {
     return currAddress;
   }
 
-  const handleBlurUserMessage = () => {
-    console.log( userMessageRef.current.value)
-   
-  }
 
   const downloadPdf = () => {
 
@@ -272,10 +268,10 @@ export default function Index() {
                       </div>
                   </div>
                   <hr/>
-                  <textarea ref={userMessageRef} className={`${styles.userMessage} ${styles.userMessageBox} ${styles.textAreaBox}`} 
-                  name="userMessage" value={data.userMessage} onChange={(event)=>handleChange(event)} maxLength="350"
-                  onBlur={()=>handleBlurUserMessage()}
-                  />
+                  <div id="userMessageBox">
+                    <textarea className={`${styles.userMessage} ${styles.userMessageBox} ${styles.textAreaBox}`} 
+                    name="userMessage" value={data.userMessage} onChange={(event)=>handleChange(event)} maxLength="350"/>
+                  </div>
                   
                   <Items 
                       items={items}

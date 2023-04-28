@@ -122,9 +122,11 @@
     color: black;
 }
 .taxPercentage{
-    width: 20%;
+    width: 50%;
     text-align: right;
     margin-right: 2px;
+    padding: 2px;
+    border: none;
 }
 .taxesTotal{
     line-height: 3;
@@ -162,6 +164,7 @@
 }
 .inputBox{
     padding: 2px;
+    width: 100%;
     border: none;
 }
 .textAreaBox{
@@ -172,6 +175,7 @@
     border: none;
     background: none;
 }
+
 
 @media screen and (max-width: 1200px) {
     .screenContainer{
