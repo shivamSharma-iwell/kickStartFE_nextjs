@@ -34,7 +34,7 @@ const Items = (props) => {
                             name="description"
                             value={item.description}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
-                            maxLength="25"
+                            maxLength="40"
                         />
                     </td>
                     <td>
@@ -72,10 +72,10 @@ const Items = (props) => {
                 </td>
             </tr>
         <tr>
-            <td colSpan="4"><b>
-                <input className={styles.inputBox} name="subTotalName" 
+            <td colSpan="4">
+                <input className={`${styles.inputBox} ${styles.highlight}`} name="subTotalName" 
                 value={props.data.subTotalName} onChange={(event)=>props.handleChange(event)} maxLength="25"/>
-                </b></td>
+                </td>
             <td className={styles.alignRight} colSpan="2"><b>{props.price.currencySymbol} {props.subTotal}</b></td>
         </tr>
         </tfoot>

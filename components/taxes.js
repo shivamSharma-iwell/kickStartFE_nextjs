@@ -10,7 +10,7 @@ const Taxes = (props) => {
                     <td><input className={`${styles.inputBox} ${styles.highlight}`} name="taxName" 
                     onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxName} maxLength="25"/></td>
                     <td className={styles.alignCenter}>
-                        <input className={`${styles.highlight} ${styles.taxPercentage}`} name="taxPercentage" 
+                        <input className={`${styles.highlight} ${styles.taxPercentage}`} name="taxPercentage" type="number" 
                         onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxPercentage} maxLength="10"/>
                         <span>%</span>
                     </td>
@@ -28,7 +28,8 @@ const Taxes = (props) => {
                 </td>   
              </tr>
             <tr>
-                <td className={styles.alignLeft} colSpan="2"><b><input className={styles.inputBox} name="totalWithTaxName" value={props.data.totalWithTaxName} onChange={(event)=>props.handleChange(event)}/></b></td>
+                <td className={styles.alignLeft} colSpan="2"><input className={`${styles.inputBox} ${styles.highlight}`} type="text" 
+                name="totalWithTaxName" value={props.data.totalWithTaxName} onChange={(event)=>props.handleChange(event)}/></td>
                 <td className={styles.alignRight}><b>{props.price.currencySymbol} {props.totalWithTax}</b></td>
             </tr>
         </tfoot>

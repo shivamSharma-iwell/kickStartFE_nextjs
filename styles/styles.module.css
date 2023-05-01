@@ -36,6 +36,12 @@
     margin-bottom: 25px;
     line-height: 2;
 }
+.leftContainer{
+    flex-basis: 50%;
+}
+.rightContainer{
+    flex-basis: 50%;
+}
 .heading{
     font-size: 1.5rem;
     font-weight: 700;
@@ -65,8 +71,8 @@
 .userMessageBox{
     max-width: 100%;
     min-width: 100%;
-    max-height: 225px;
-    min-height: 225px;
+    max-height: 200px;
+    min-height: 200px;
 }
 .conclusionMessageBox{
     max-width: 100%;
@@ -170,12 +176,13 @@
 .textAreaBox{
     padding: 2px;
     border: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    resize: none;
 }
 .btn{
     border: none;
     background: none;
 }
-
 
 @media screen and (max-width: 1200px) {
     .screenContainer{
@@ -194,5 +201,4 @@
     .rightMainBox{
         width: 100%;
     }
-    
 }

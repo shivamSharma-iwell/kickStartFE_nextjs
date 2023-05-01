@@ -4,16 +4,10 @@ import { v4 as uuid } from 'uuid'
 import styles from '../styles/styles.module.css'
 import Items from '../components/items'
 import Taxes from '../components/taxes'
-
+import moment from 'moment'
 
 export default function Index() {
-
-  const date = new Date();
-
-  const day = date.getDate();
-  const month = date.toLocaleString('en-us', { month: 'long' }); 
-  const year = date.getFullYear();
-  const currentDate = `${day} ${month} ${year}`;
+  const currentDate = moment().format('ll')
 
   const [items, setItems] = useState([{
       itemID: uuid(),
@@ -33,10 +27,10 @@ export default function Index() {
   const [subTotal, setsubTotal] = useState(100)
   const [totalWithTax, setTotalWithTax] = useState(120)
 
-  const [price, setPrice] = useState({
-      unitPriceName: 'Unit price (₹)',
-      currencySymbol: '₹'
-  })
+    const [price, setPrice] = useState({
+        unitPriceName: 'Unit price (₹)',
+        currencySymbol: '₹'
+    })
 
   const [address, setAddress] = useState({
     addressLine1: '123 your street',
@@ -152,7 +146,7 @@ export default function Index() {
   const [data, setData] = useState({
     advisoryCompanyName: 'Company Name',
     contactNo: '123456789',
-    email: 'test@gmail.com',
+    email: 'youremail@gmail.com',
     invoiceHeading: 'Invoice',
     date: currentDate,
     invoiceID: 'Invoice #234556',
@@ -238,7 +232,7 @@ export default function Index() {
                   <div className={styles.headerInfo}>
                       <div className={styles.leftContainer}>
                           <input className={`${styles.heading} ${styles.inputBox}`} name="advisoryCompanyName" 
-                          value={data.advisoryCompanyName} onChange={(event)=>handleChange(event)} maxLength="25"/>
+                          value={data.advisoryCompanyName} onChange={(event)=>handleChange(event)} maxLength="40"/>
                           <div>
                               <input className={styles.inputBox} name="addressLine1" 
                               onChange={(event)=>handleChangeAddress(event)} value={address.addressLine1} maxLength="25"/>
