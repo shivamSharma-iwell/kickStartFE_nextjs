@@ -7,12 +7,36 @@ const Taxes = (props) => {
         <tbody className={styles.highlight}>
             {props.taxes && props.taxes.map((tax) => (
                 <tr key={tax.taxID}>
-                    <td><input className={`${styles.inputBox} ${styles.highlight}`} name="taxName" 
-                    onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxName} maxLength="25"/></td>
-                    <td className={styles.alignCenter}>
-                        <input className={`${styles.highlight} ${styles.taxPercentage}`} name="taxPercentage" type="number" 
-                        onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} value={tax.taxPercentage} maxLength="10"/>
-                        <span>%</span>
+                    <td>
+                        {
+                            props.currFocus==`${tax.taxID} taxName`?
+                            <input className={`${styles.inputBox} ${styles.highlight}`} name="taxName" 
+                            onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)} 
+                            value={tax.taxName} maxLength="40" onBlur={()=>props.handleInputBlur()} autoFocus/>:
+                            <div onClick={()=>props.handleDivClick(`${tax.taxID} taxName`)}>{tax.taxName}</div>
+                        }
+                        
+                    </td>
+
+
+                    <td>
+
+                    {
+                            props.currFocus==`${tax.taxID} taxPercentage`?
+                            <>
+                            <input className={`${styles.highlight} ${styles.taxPercentage}`} name="taxPercentage" 
+                            onChange={(event) => props.modifyTaxes("changeTax", event, tax.taxID)}  
+                
+                            value={tax.taxPercentage} maxLength="25" onBlur={()=>props.handleInputBlur()} autoFocus/>
+                            <span>%</span>
+                            </>:
+                            <>
+                            <div className={styles.alignCenter}  onClick={()=>props.handleDivClick(`${tax.taxID} taxPercentage`)}>{tax.taxPercentage} %</div>
+                    
+                            </>
+                        }
+
+                        
                     </td>
                     <td className={`${styles.highlight} ${styles.alignRight}`} name="taxAmount">{
                         props.price.currencySymbol} {tax.taxAmount}
@@ -28,8 +52,16 @@ const Taxes = (props) => {
                 </td>   
              </tr>
             <tr>
-                <td className={styles.alignLeft} colSpan="2"><input className={`${styles.inputBox} ${styles.highlight}`} type="text" 
-                name="totalWithTaxName" value={props.data.totalWithTaxName} onChange={(event)=>props.handleChange(event)}/></td>
+                <td className={styles.alignLeft} colSpan="2">
+                    {
+                        props.currFocus=="totalWithTaxName"?
+                        <input className={`${styles.inputBox} ${styles.highlight}`} type="text" 
+                        name="totalWithTaxName" value={props.data.totalWithTaxName} onChange={(event)=>props.handleChange(event)}
+                        onBlur={()=>props.handleInputBlur()}/>:
+                        <div  onClick={()=>props.handleDivClick("totalWithTaxName")}>{props.data.totalWithTaxName}</div>
+                    }
+                    
+                    </td>
                 <td className={styles.alignRight}><b>{props.price.currencySymbol} {props.totalWithTax}</b></td>
             </tr>
         </tfoot>

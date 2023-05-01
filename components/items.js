@@ -10,6 +10,9 @@ const Items = (props) => {
                 <th className={styles.alignCenter}>Item Description</th>
                 <th className={styles.alignCenter}>Quantity</th>
                 <th className={styles.alignCenter}>
+
+                   {
+                    props.currFocus=="currencyName"?
                     <input
                         className={`${styles.priceInput} ${styles.alignCenter} ${styles.inputBox}`}
                         type="text"
@@ -17,7 +20,13 @@ const Items = (props) => {
                         value={props.price.unitPriceName}
                         onChange={(event) => {props.handlePriceChange(event)}}
                         maxLength="25"
-                    /> 
+                        onBlur={()=>props.handleInputBlur()}
+                        autoFocus
+                    />:
+                    <div onClick={()=>props.handleDivClick("currencyName")}>
+                        {props.price.unitPriceName}</div>
+                   }
+                     
                 </th>
                 <th className={styles.alignRight}>Line Total</th>
                 <th></th>
@@ -28,34 +37,57 @@ const Items = (props) => {
                 <tr key={item.itemID}>
                     <td className={styles.alignLeft}>{index + 1}</td>
                     <td>
-                        <input
+                        {
+                            props.currFocus==`${item.itemID} description`?
+                            <input
                             className={`${styles.inputBox} ${styles.alignCenter}`}
                             type="text"
                             name="description"
                             value={item.description}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
-                            maxLength="40"
-                        />
+                            maxLength="100"
+                            onBlur={()=>props.handleInputBlur()}
+                            autoFocus/>:
+                            <div className={styles.alignCenter} onClick={()=>props.handleDivClick(`${item.itemID} description`)}>{item.description}</div>
+                        }
+                        
                     </td>
                     <td>
-                        <input
+
+
+                    {
+                            props.currFocus==`${item.itemID} quantity`?
+                            <input
                             className={`${styles.inputBox} ${styles.alignCenter}`}
                             type="number"
                             name="quantity"
                             value={item.quantity}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
-                            maxLength="10"
-                        />
+                            maxLength="100"
+                            onBlur={()=>props.handleInputBlur()}
+                            autoFocus/>:
+                            <div className={styles.alignCenter} onClick={()=>props.handleDivClick(`${item.itemID} quantity`)}>{item.quantity}</div>
+                        }
+
                     </td>
                     <td>
-                        <input
+
+                    {
+                            props.currFocus==`${item.itemID} unitPrice`?
+                            <input
                             className={`${styles.inputBox} ${styles.alignCenter}`}
                             type="number"
                             name="unitPrice"
                             value={item.unitPrice}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
-                            maxLength="10"
-                        />
+                            maxLength="100"
+                            onBlur={()=>props.handleInputBlur()}
+                            autoFocus/>:
+                            <div className={styles.alignCenter} onClick={()=>props.handleDivClick(`${item.itemID} unitPrice`)}>{item.unitPrice}</div>
+                        }
+
+
+                        
                     </td>
                     <td className={`${styles.alignRight} ${styles.lineTotal}`} type="number" name="lineTotal">
                         {props.price.currencySymbol} {item.lineTotal}  
@@ -73,8 +105,14 @@ const Items = (props) => {
             </tr>
         <tr>
             <td colSpan="4">
-                <input className={`${styles.inputBox} ${styles.highlight}`} name="subTotalName" 
-                value={props.data.subTotalName} onChange={(event)=>props.handleChange(event)} maxLength="25"/>
+                {
+                    props.currFocus=="subTotalName"?
+                    <input className={`${styles.inputBox} ${styles.highlight}`} name="subTotalName" 
+                    value={props.data.subTotalName} onChange={(event)=>props.handleChange(event)} maxLength="25"
+                    onBlur={()=>props.handleInputBlur()}/>:
+                    <div onClick={()=>props.handleDivClick("subTotalName")}>{props.data.subTotalName}</div>
+                }
+                
                 </td>
             <td className={styles.alignRight} colSpan="2"><b>{props.price.currencySymbol} {props.subTotal}</b></td>
         </tr>
