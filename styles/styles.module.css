@@ -100,8 +100,9 @@
     width: 3%;
 }
 .itemTable th:nth-child(2), .itemTable td:nth-child(2){
-    width: 30%;
+    width: 42%;
     line-height: 1.5;
+    padding: 2px;
 }
 .itemTable th:nth-child(3) {
     width: 15%;
@@ -110,11 +111,11 @@
     width: 20%;
 }
 .itemTable th:nth-child(5) {
-    width: 30%;
+    width: 20%;
 }
-.itemTable th:nth-child(6) {
+/* .itemTable th:nth-child(6) {
     width: 2%;
-}
+} */
 .taxTable td:nth-child(1) {
     width: 30%;
 }
@@ -122,7 +123,7 @@
     width: 30%;
 }
 .taxTable td:nth-child(3) {
-    width: 40%;
+    width: 38%;
 }
 .priceInput{
     font-size: 1rem;
