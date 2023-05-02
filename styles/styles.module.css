@@ -1,5 +1,5 @@
 .screenContainer{
-    width: 80%;
+    width: 75%;
     margin: 20px auto;
     background-color: #EEE;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -10,7 +10,7 @@
     padding: 20px 0;
 }
 .mainContainer{
-    width: 85%;
+    width: 80%;
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -29,18 +29,23 @@
     display: flex;
 }
 .headerInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
     width: 100%;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     line-height: 2;
 }
-.leftContainer{
-    flex-basis: 50%;
+.headerInfoBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
-.rightContainer{
-    flex-basis: 50%;
+.companyName{
+    width: 60%;
+    line-height: 1.5;
+}
+.invoiceHeading{
+    width: 30%;
+    line-height: 1.5;
 }
 .heading{
     font-size: 1.5rem;
@@ -61,33 +66,29 @@
 .alignCenter{
     text-align: center;
 }
-.userMessage {
-    margin: 30px 0;
+.userMessageTextArea{
+    width: 100%;
+    min-height: 200px;
     line-height: 1.5;
+    margin: 30px 0;
 }
 .userMessageDiv{
-    white-space: pre-wrap;
-    margin: 30px 0;
-    line-height: 1.5;
-}
-.fullWidth{
     width: 100%;
-}
-.userMessageBox{
-    max-width: 100%;
-    min-width: 100%;
-    max-height: 200px;
     min-height: 200px;
+    line-height: 1.5;
+    margin: 30px 0;
+    white-space: pre-wrap;
 }
-.conclusionMessageBox{
-    max-width: 100%;
-    min-width: 100%;
-    max-height: 125px;
-    min-height: 125px;
+.conclusionMessageTextArea{
+    width: 100%;
+    min-height: 100px;
+    margin: 20px 0;
 }
 .conclusionMessageDiv{
+    width: 100%;
+    min-height: 100px;
+    margin: 20px 0;
     white-space: pre-wrap;
-    margin: 10px 0;
 }
 .itemTable, .taxTable{
     width: 100%;
@@ -95,26 +96,24 @@
     line-height: 2;
     margin-top: 20px;
 }
-.itemTable{
-    width: 100%;
-}
-.itemTable td:nth-child(1) {
+.itemTable th:nth-child(1) {
     width: 3%;
 }
-.itemTable td:nth-child(2) {
+.itemTable th:nth-child(2), .itemTable td:nth-child(2){
     width: 30%;
+    line-height: 1.5;
 }
-.itemTable td:nth-child(3) {
-    width: 19%;
+.itemTable th:nth-child(3) {
+    width: 15%;
 }
-.itemTable td:nth-child(4) {
-    width: 25%;
-}
-.itemTable td:nth-child(5) {
+.itemTable th:nth-child(4) {
     width: 20%;
 }
-.itemTable td:nth-child(6) {
-    width: 5%;
+.itemTable th:nth-child(5) {
+    width: 30%;
+}
+.itemTable th:nth-child(6) {
+    width: 2%;
 }
 .taxTable td:nth-child(1) {
     width: 30%;
@@ -125,7 +124,6 @@
 .taxTable td:nth-child(3) {
     width: 40%;
 }
-
 .priceInput{
     font-size: 1rem;
     font-weight: 700;

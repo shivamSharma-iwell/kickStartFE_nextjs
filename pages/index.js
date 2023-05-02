@@ -7,7 +7,6 @@ import Taxes from '../components/taxes'
 import moment from 'moment'
 
 export default function Index() {
-  const currentDate = moment().format('ll')
 
   const [currFocus, setCurrFocus] = useState(false);
 
@@ -18,18 +17,15 @@ export default function Index() {
       unitPrice: 100,
       lineTotal: 100
   }]);
-
   const [taxes, setTaxes] = useState([{
       taxID: uuid(),
       taxName: 'Tax Name',
       taxPercentage: 20,
       taxAmount: 20
   }])
-
   const [subTotal, setsubTotal] = useState(100)
   const [totalWithTax, setTotalWithTax] = useState(120)
-
-    const [price, setPrice] = useState({
+  const [price, setPrice] = useState({
         unitPriceName: 'Unit price (₹)',
         currencySymbol: '₹'
     })
@@ -54,6 +50,7 @@ export default function Index() {
       setTotalWithTax(newTotalWithTax + subTotal);
   }, [items, taxes])
 
+  const currentDate = moment().format('ll')
 
   const modifyItems = (eventName, event, currItemID) => {
       switch (eventName) {
@@ -93,7 +90,6 @@ export default function Index() {
               break;
       }
   }
-
   const modifyTaxes = (eventName, event, currTaxID) => {
       switch (eventName) {
           case "addTax":
@@ -192,11 +188,18 @@ export default function Index() {
         currAddress += address.addressLine2 + '\n';
     }
     if(address.addressLine3.length!=0){
-        currAddress += address.addressLine3 + '\n';
+        currAddress += address.addressLine3;
     }
     return currAddress;
   }
 
+  const handleDivClick = (name) => {
+    setCurrFocus(name);
+  }
+
+  const handleInputBlur = () => {
+    setCurrFocus(false);
+  }
 
   const downloadPdf = () => {
 
@@ -218,14 +221,6 @@ export default function Index() {
       window.open(`http://localhost:3000/downloadInvoice?data=${dataString}`)
   }
 
-  const handleDivClick = (name) => {
-    setCurrFocus(name);
-  }
-
-  const handleInputBlur = () => {
-    setCurrFocus(false);
-  }
-
   return (
     <>
       <Head>
@@ -240,8 +235,9 @@ export default function Index() {
           <div className={styles.mainContainer}>
               <div className={styles.leftMainBox}>
                   <div className={styles.headerInfo}>
-                      <div className={styles.leftContainer}>
-                         {
+                    <div className={styles.headerInfoBox}>
+                        <div className={styles.companyName}>
+                        {
                             currFocus=="advisoryCompanyName"?
                             <input className={`${styles.heading} ${styles.inputBox}`} name="advisoryCompanyName" 
                             value={data.advisoryCompanyName} onChange={(event)=>handleChange(event)} maxLength="40"
@@ -249,7 +245,19 @@ export default function Index() {
                             <div className={styles.heading} onClick={()=>handleDivClick("advisoryCompanyName")}>
                             {data.advisoryCompanyName}</div>
                          }
-                         <div>
+                        </div>
+                        <div className={styles.invoiceHeading}>
+                        {
+                            currFocus=="invoiceHeading"?
+                            <input className={`${styles.heading} ${styles.alignRight} ${styles.inputBox}`} 
+                            name="invoiceHeading" value={data.invoiceHeading} onChange={(event)=>handleChange(event)} maxLength="40"
+                            onBlur={()=>handleInputBlur()} autoFocus/>:
+                            <div className={`${styles.heading} ${styles.alignRight}`} onClick={()=>handleDivClick("invoiceHeading")}>{data.invoiceHeading}</div>
+                        }
+                        </div>
+                    </div>
+                    <div className={styles.headerInfoBox}>
+                        <div>
                             {
                                 currFocus=="addressLine1"?
                                 <input className={styles.inputBox} name="addressLine1" 
@@ -257,7 +265,6 @@ export default function Index() {
                                 onBlur={()=>handleInputBlur()} autoFocus/>:
                                 <div onClick={()=>handleDivClick("addressLine1")}>{address.addressLine1}</div>
                             }
-
                             {
                                 currFocus=="addressLine2"?
                                 <input className={styles.inputBox} name="addressLine2" 
@@ -265,8 +272,6 @@ export default function Index() {
                                 onBlur={()=>handleInputBlur()} autoFocus/>:
                                 <div onClick={()=>handleDivClick("addressLine2")}>{address.addressLine2}</div>
                             }
-
-
                             {
                                 currFocus=="addressLine3"?
                                 <input className={styles.inputBox} name="addressLine3" 
@@ -274,92 +279,75 @@ export default function Index() {
                                 onBlur={()=>handleInputBlur()} autoFocus/>:
                                 <div onClick={()=>handleDivClick("addressLine3")}>{address.addressLine3}</div>
                             }
-                            
-                          </div>
+                        </div>
+
+                        <div>
                           {
-                            currFocus=="contactNo"?
-                            <input className={styles.inputBox} name="contactNo" value={data.contactNo} 
-                            onChange={(event)=>handleChange(event)} maxLength="25"
-                            onBlur={()=>handleInputBlur()} autoFocus/>:
-                            <div onClick={()=>handleDivClick("contactNo")}>{data.contactNo}</div>
-                          }
-
-                        {
-                            currFocus=="email"?
-                            <input className={styles.inputBox} name="email" value={data.email} 
-                            onChange={(event)=>handleChange(event)} maxLength="40"
-                            onBlur={()=>handleInputBlur()} autoFocus/>:
-                            <div onClick={()=>handleDivClick("email")}>{data.email}</div>
-                          }
-
-                          
-                      </div>
-                      <div className={`${styles.rightContainer} ${styles.alignRight}`}>
-
-                        {
-                            currFocus=="invoiceHeading"?
-                            <input className={`${styles.heading} ${styles.alignRight} ${styles.inputBox}`} 
-                            name="invoiceHeading" value={data.invoiceHeading} onChange={(event)=>handleChange(event)} maxLength="40"
-                            onBlur={()=>handleInputBlur()} autoFocus/>:
-                            <div className={styles.heading} onClick={()=>handleDivClick("invoiceHeading")}>{data.invoiceHeading}</div>
-                        }
-
-                        {
                             currFocus=="date"?
                             <input className={`${styles.inputBox} ${styles.alignRight}`} 
                             name="date" value={data.date} onChange={(event)=>handleChange(event)} maxLength="25"
                             onBlur={()=>handleInputBlur()} autoFocus/>:
-                            <div onClick={()=>handleDivClick("date")}>{data.date}</div>
+                            <div className={styles.alignRight} onClick={()=>handleDivClick("date")}>{data.date}</div>
                         }
-
                         {
                             currFocus=="invoiceID"?
                             <input className={`${styles.inputBox} ${styles.alignRight}`} 
                             name="invoiceID" value={data.invoiceID} onChange={(event)=>handleChange(event)} maxLength="25"
                             onBlur={()=>handleInputBlur()} autoFocus/>:
-                            <div onClick={()=>handleDivClick('invoiceID')}>{data.invoiceID}</div>
+                            <div className={styles.alignRight} onClick={()=>handleDivClick('invoiceID')}>{data.invoiceID}</div>
                         }
-                          
-                          {
+                        {
                             currFocus=="poNumber"?
                             <input className={`${styles.inputBox} ${styles.alignRight}`} 
                             name="poNumber" value={data.poNumber} onChange={(event)=>handleChange(event)} maxLength="25"
                             onBlur={()=>handleInputBlur()} autoFocus/>:
-                            <div  onClick={()=>handleDivClick("poNumber")}>{data.poNumber}</div>
+                            <div className={styles.alignRight} onClick={()=>handleDivClick("poNumber")}>{data.poNumber}</div>
                         }  
-
-                        {
-                            currFocus=="clientName"?
-                            <input className={`${styles.inputBox} ${styles.alignRight}`} 
-                            name="clientName" value={data.clientName} onChange={(event)=>handleChange(event)} maxLength="25"
-                            onBlur={()=>handleInputBlur()} autoFocus/>:
-                            <div onClick={()=>handleDivClick("clientName")}>{data.clientName}</div>
-                        }
-
-                        {
-                            currFocus=="clientCompanyName"?
-                            <input className={`${styles.inputBox} ${styles.alignRight}`} 
-                            name="clientCompanyName" value={data.clientCompanyName} onChange={(event)=>handleChange(event)} maxLength="25"
-                            onBlur={()=>handleInputBlur()} autoFocus/>:
-                            <div onClick={()=>handleDivClick("clientCompanyName")}>{data.clientCompanyName}</div>
-                        }
-                          
-                
-    
-                      </div>
+                        </div>
+                    </div>
+                    <div className={styles.headerInfoBox}>
+                        <div>
+                            {
+                                currFocus=="contactNo"?
+                                <input className={styles.inputBox} name="contactNo" value={data.contactNo} 
+                                onChange={(event)=>handleChange(event)} maxLength="25"
+                                onBlur={()=>handleInputBlur()} autoFocus/>:
+                                <div onClick={()=>handleDivClick("contactNo")}>{data.contactNo}</div>
+                            }
+                            {
+                                currFocus=="email"?
+                                <input className={styles.inputBox} name="email" value={data.email} 
+                                onChange={(event)=>handleChange(event)} maxLength="40"
+                                onBlur={()=>handleInputBlur()} autoFocus/>:
+                                <div onClick={()=>handleDivClick("email")}>{data.email}</div>
+                            }
+                        </div>
+                        <div className={styles.highlight}>
+                            {
+                                currFocus=="clientName"?
+                                <input className={`${styles.inputBox} ${styles.alignRight} ${styles.highlight}`} 
+                                name="clientName" value={data.clientName} onChange={(event)=>handleChange(event)} maxLength="50"
+                                onBlur={()=>handleInputBlur()} autoFocus/>:
+                                <div className={styles.alignRight} onClick={()=>handleDivClick("clientName")}>{data.clientName}</div>
+                            }
+                            {
+                                currFocus=="clientCompanyName"?
+                                <input className={`${styles.inputBox} ${styles.alignRight} ${styles.highlight}`} 
+                                name="clientCompanyName" value={data.clientCompanyName} onChange={(event)=>handleChange(event)} maxLength="25"
+                                onBlur={()=>handleInputBlur()} autoFocus/>:
+                                <div className={styles.alignRight} onClick={()=>handleDivClick("clientCompanyName")}>{data.clientCompanyName}</div>
+                            }
+                        </div>
+                    </div>   
                   </div>
                   <hr/>
-                  <div>
                     {
                         currFocus=="userMessage"?
-                        <textarea className={`${styles.userMessage} ${styles.userMessageBox} ${styles.textAreaBox}`} 
+                        <textarea className={`${styles.userMessageTextArea} ${styles.textAreaBox}`} 
                         name="userMessage" value={data.userMessage} onChange={(event)=>handleChange(event)} maxLength="350"
                         onBlur={()=>handleInputBlur()} autoFocus/>:
                         <div className={styles.userMessageDiv} onClick={()=>handleDivClick("userMessage") }>{data.userMessage}</div>
                     }
-                    
-                  </div>
-                  
                   <Items 
                       items={items}
                       taxes={taxes}
@@ -374,7 +362,6 @@ export default function Index() {
                       currFocus={currFocus}
                       handleDivClick={handleDivClick}
                       handleInputBlur={handleInputBlur}
-                      
                   />
                   <Taxes
                       items={items}
@@ -390,18 +377,15 @@ export default function Index() {
                       currFocus={currFocus}
                       handleDivClick={handleDivClick}
                       handleInputBlur={handleInputBlur}
-                      
                   />
-
                   {
                     currFocus=="conclusionMessage"?
-                    <textarea className={`${styles.conclusionMessage} ${styles.conclusionMessageBox} ${styles.textAreaBox}`} 
+                    <textarea className={`${styles.conclusionMessageTextArea} ${styles.textAreaBox}`} 
                     name="conclusionMessage" value={data.conclusionMessage} onChange={(event)=>handleChange(event)} maxLength="200"
                     onBlur={()=>handleInputBlur()} autoFocus/>:
                     <div className={styles.conclusionMessageDiv} 
                     onClick={()=>handleDivClick("conclusionMessage") }>{data.conclusionMessage}</div>
                   }
-                  
               </div>     
               <div className={styles.rightMainBox}>
                   <button className={styles.rightBoxDownloadBtn} onClick={() => downloadPdf()}>Download this invoice</button>
