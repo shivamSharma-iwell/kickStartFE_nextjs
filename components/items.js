@@ -44,7 +44,7 @@ const Items = (props) => {
                             name="description"
                             value={item.description}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
-                            maxLength="100"
+                            maxLength="80"
                             onBlur={()=>props.handleInputBlur()}
                             autoFocus/>:
                             <div className={styles.alignCenter} onClick={()=>props.handleDivClick(`${item.itemID} description`)}>{item.description}</div>
@@ -60,7 +60,8 @@ const Items = (props) => {
                             name="quantity"
                             value={item.quantity}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
-                            maxLength="100"
+                            min="0"
+                            max="10"
                             onBlur={()=>props.handleInputBlur()}
                             autoFocus/>:
                             <div className={styles.alignCenter} onClick={()=>props.handleDivClick(`${item.itemID} quantity`)}>{item.quantity}</div>
@@ -76,7 +77,8 @@ const Items = (props) => {
                             name="unitPrice"
                             value={item.unitPrice}
                             onChange={(event) => {props.modifyItems("changeItem", event, item.itemID)}}
-                            maxLength="100"
+                            min="0"
+                            max="10"
                             onBlur={()=>props.handleInputBlur()}
                             autoFocus/>:
                             <div className={styles.alignCenter} onClick={()=>props.handleDivClick(`${item.itemID} unitPrice`)}>{item.unitPrice}</div>

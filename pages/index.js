@@ -240,7 +240,7 @@ export default function Index() {
                         {
                             currFocus=="advisoryCompanyName"?
                             <input className={`${styles.heading} ${styles.inputBox}`} name="advisoryCompanyName" 
-                            value={data.advisoryCompanyName} onChange={(event)=>handleChange(event)} maxLength="40"
+                            value={data.advisoryCompanyName} onChange={(event)=>handleChange(event)} maxLength="50"
                             onBlur={()=>handleInputBlur()} autoFocus/>:
                             <div className={styles.heading} onClick={()=>handleDivClick("advisoryCompanyName")}>
                             {data.advisoryCompanyName}</div>
@@ -250,7 +250,7 @@ export default function Index() {
                         {
                             currFocus=="invoiceHeading"?
                             <input className={`${styles.heading} ${styles.alignRight} ${styles.inputBox}`} 
-                            name="invoiceHeading" value={data.invoiceHeading} onChange={(event)=>handleChange(event)} maxLength="40"
+                            name="invoiceHeading" value={data.invoiceHeading} onChange={(event)=>handleChange(event)} maxLength="30"
                             onBlur={()=>handleInputBlur()} autoFocus/>:
                             <div className={`${styles.heading} ${styles.alignRight}`} onClick={()=>handleDivClick("invoiceHeading")}>{data.invoiceHeading}</div>
                         }
@@ -261,21 +261,21 @@ export default function Index() {
                             {
                                 currFocus=="addressLine1"?
                                 <input className={styles.inputBox} name="addressLine1" 
-                                onChange={(event)=>handleChangeAddress(event)} value={address.addressLine1} maxLength="25"
+                                onChange={(event)=>handleChangeAddress(event)} value={address.addressLine1} maxLength="40"
                                 onBlur={()=>handleInputBlur()} autoFocus/>:
                                 <div onClick={()=>handleDivClick("addressLine1")}>{address.addressLine1}</div>
                             }
                             {
                                 currFocus=="addressLine2"?
                                 <input className={styles.inputBox} name="addressLine2" 
-                                onChange={(event)=>handleChangeAddress(event)} value={address.addressLine2} maxLength="25"
+                                onChange={(event)=>handleChangeAddress(event)} value={address.addressLine2} maxLength="40"
                                 onBlur={()=>handleInputBlur()} autoFocus/>:
                                 <div onClick={()=>handleDivClick("addressLine2")}>{address.addressLine2}</div>
                             }
                             {
                                 currFocus=="addressLine3"?
                                 <input className={styles.inputBox} name="addressLine3" 
-                                onChange={(event)=>handleChangeAddress(event)} value={address.addressLine3} maxLength="25"
+                                onChange={(event)=>handleChangeAddress(event)} value={address.addressLine3} maxLength="40"
                                 onBlur={()=>handleInputBlur()} autoFocus/>:
                                 <div onClick={()=>handleDivClick("addressLine3")}>{address.addressLine3}</div>
                             }
@@ -317,7 +317,7 @@ export default function Index() {
                             {
                                 currFocus=="email"?
                                 <input className={styles.inputBox} name="email" value={data.email} 
-                                onChange={(event)=>handleChange(event)} maxLength="40"
+                                onChange={(event)=>handleChange(event)} maxLength="50"
                                 onBlur={()=>handleInputBlur()} autoFocus/>:
                                 <div onClick={()=>handleDivClick("email")}>{data.email}</div>
                             }
@@ -326,14 +326,14 @@ export default function Index() {
                             {
                                 currFocus=="clientName"?
                                 <input className={`${styles.inputBox} ${styles.alignRight} ${styles.highlight}`} 
-                                name="clientName" value={data.clientName} onChange={(event)=>handleChange(event)} maxLength="50"
+                                name="clientName" value={data.clientName} onChange={(event)=>handleChange(event)} maxLength="30"
                                 onBlur={()=>handleInputBlur()} autoFocus/>:
                                 <div className={styles.alignRight} onClick={()=>handleDivClick("clientName")}>{data.clientName}</div>
                             }
                             {
                                 currFocus=="clientCompanyName"?
                                 <input className={`${styles.inputBox} ${styles.alignRight} ${styles.highlight}`} 
-                                name="clientCompanyName" value={data.clientCompanyName} onChange={(event)=>handleChange(event)} maxLength="25"
+                                name="clientCompanyName" value={data.clientCompanyName} onChange={(event)=>handleChange(event)} maxLength="50"
                                 onBlur={()=>handleInputBlur()} autoFocus/>:
                                 <div className={styles.alignRight} onClick={()=>handleDivClick("clientCompanyName")}>{data.clientCompanyName}</div>
                             }
