@@ -1,0 +1,212 @@
+.screenContainer{
+    width: 75%;
+    margin: 20px auto;
+    background-color: #EEE;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.toolTitle{
+    font-size: 1.6rem;
+    margin-left: 8%;
+    padding: 20px 0;
+}
+.mainContainer{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.leftMainBox{
+    width: 65%;
+    background-color: white;
+    padding: 20px 50px;
+    margin-bottom: 25px;
+}
+.rightMainBox {
+    width: 30%;
+    background-color: white;
+    align-self: flex-start; 
+    display: flex;
+}
+.headerInfo {
+    width: 100%;
+    margin-bottom: 20px;
+    line-height: 2;
+}
+.headerInfoBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.companyName{
+    width: 60%;
+    line-height: 1.5;
+}
+.invoiceHeading{
+    width: 30%;
+    line-height: 1.5;
+}
+.heading{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: black;
+    margin: 10px 0;
+}
+.highlight{
+    font-weight: 700;
+    color: black;
+}
+.alignRight{
+    text-align: right;
+}
+.alignLeft{
+    text-align: left;
+}
+.alignCenter{
+    text-align: center;
+}
+.userMessageTextArea{
+    width: 100%;
+    min-height: 200px;
+    line-height: 1.5;
+    margin: 30px 0;
+}
+.userMessageDiv{
+    width: 100%;
+    min-height: 200px;
+    line-height: 1.5;
+    margin: 30px 0;
+    white-space: pre-wrap;
+}
+.conclusionMessageTextArea{
+    width: 100%;
+    min-height: 100px;
+    margin: 20px 0;
+}
+.conclusionMessageDiv{
+    width: 100%;
+    min-height: 100px;
+    margin: 20px 0;
+    white-space: pre-wrap;
+}
+.itemTable, .taxTable{
+    width: 100%;
+    border-collapse: collapse;
+    line-height: 2;
+    margin-top: 20px;
+}
+.itemTable th:nth-child(1) {
+    width: 3%;
+}
+.itemTable th:nth-child(2), .itemTable td:nth-child(2){
+    width: 42%;
+    line-height: 1.5;
+    padding: 2px;
+}
+.itemTable th:nth-child(3) {
+    width: 15%;
+}
+.itemTable th:nth-child(4) {
+    width: 20%;
+}
+.itemTable th:nth-child(5) {
+    width: 20%;
+}
+/* .itemTable th:nth-child(6) {
+    width: 2%;
+} */
+.taxTable td:nth-child(1) {
+    width: 30%;
+}
+.taxTable td:nth-child(2) {
+    width: 30%;
+}
+.taxTable td:nth-child(3) {
+    width: 38%;
+}
+.priceInput{
+    font-size: 1rem;
+    font-weight: 700;
+}
+.itemsTotal{
+    line-height: 3;
+}
+.lineTotal{
+    color: black;
+}
+.taxPercentage{
+    width: 50%;
+    text-align: right;
+    margin-right: 2px;
+    padding: 2px;
+    border: none;
+}
+.taxesTotal{
+    line-height: 3;
+}
+.conclusionMessage{
+    margin-top: 25px;
+    line-height: 1.5;
+}
+.rightBoxDownloadBtn{
+    background-color: #215293;
+    cursor: pointer;
+    color: white;
+    display: inline-block;
+    width: 80%;
+    margin: 25px auto;
+    font-size: 1.2rem;
+    padding: 15px;
+    border: none;
+    border-radius: 3px;
+}
+.rightBoxDownloadBtn:hover{
+    background-color: #003e71;
+    transition: 0.5s;
+}
+.remove {
+    color: red;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.addNewEntity {
+    cursor: pointer;
+    font-weight: bold;
+    color: #146EB4
+}
+.inputBox{
+    padding: 2px;
+    width: 100%;
+    border: none;
+}
+.textAreaBox{
+    padding: 2px;
+    border: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    resize: none;
+}
+.btn{
+    border: none;
+    background: none;
+}
+
+@media screen and (max-width: 1200px) {
+    .screenContainer{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 950px) {
+    .mainContainer{
+        display: block;
+        width: 100%;
+    }
+    .leftMainBox{
+        width: 100%;
+        margin: 25px 0;
+    }
+    .rightMainBox{
+        width: 100%;
+    }
+}
